@@ -53,7 +53,7 @@ def perform(action, data, response=None, steps=None):
     else:
         print("Error")
 
-def set_scheduler(pattern, run=None):
+def scheduler(pattern, run=None):
     crons = pattern.split()
     minutes = 0
     hours = -1
@@ -103,7 +103,7 @@ with open(input_file) as file:
     def wrapper():
         return invoke(step_id, None, steps)
     
-    set_scheduler(pattern, wrapper)
+    scheduler(pattern, wrapper)
     while True:
         schedule.run_pending()
         time.sleep(1)
