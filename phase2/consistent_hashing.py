@@ -16,7 +16,7 @@ class ConsistentHash(object):
         key = str(key)
         hsh = hashlib.sha256()
         hsh.update(bytes(key.encode('utf-8')))
-        return int(hsh.hexdigest(), 16)
+        return int(hsh.hexdigest(), 16)%2**32
 
     def get_node(self, key):
         hash_key = self.hash(key)

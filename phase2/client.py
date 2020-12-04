@@ -3,7 +3,16 @@ import consul
 
 app = Flask(__name__)
 c = consul.Consul(host="127.0.0.1", port="8500")
+producers = {}
 
+def create_clients(servers):
+    context = zmq.Context()
+    for server in servers:
+        print(f"Creating a server connection to {server}...")
+        producer_conn = context.socket(zmq.PUSH)
+        producer_conn.bind(server)
+        producers[server] = producer_conn
+    return producers
 
 
 @app.route('/put', methods=['PUT'])
